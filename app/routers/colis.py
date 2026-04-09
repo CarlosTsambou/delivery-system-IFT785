@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.repositories.colis_repository import ColisRepository
 from app.schemas import ColisCreer, ColisReponse, ColisChangerStatut
+from app.services.colis_service import ColisService
 
 router = APIRouter(prefix="/colis", tags=["Colis"])
 
@@ -31,10 +32,15 @@ def obtenir_colis(colis_id: str, db: Session = Depends(get_db)):
 @router.patch("/{colis_id}/statut", response_model=ColisReponse)
 def changer_statut(colis_id: str, data: ColisChangerStatut, db: Session = Depends(get_db)):
     repo = ColisRepository(db)
-    colis = repo.changer_statut(colis_id, data.nouveau_statut)
+    colis = repo.obtenir_par_id(colis_id)
     if colis is None:
         raise HTTPException(status_code=404, detail="Colis non trouvé")
-    return colis
+    if not ColisService.transition_valide(colis.statut, data.nouveau_statut):
+        raise HTTPException(
+            status_code=400,
+            detail=ColisService.message_erreur_transition(colis.statut, data.nouveau_statut)
+        )
+    return repo.changer_statut(colis_id, data.nouveau_statut)
 
 @router.delete("/{colis_id}", status_code=204)
 def supprimer_colis(colis_id: str, db: Session = Depends(get_db)):

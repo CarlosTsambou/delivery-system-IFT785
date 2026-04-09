@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app.routers import colis
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI(
     title="Système de gestion de livraison de colis",
