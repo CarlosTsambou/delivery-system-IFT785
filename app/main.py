@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app.routers import colis
+from app.routers import dashboard
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -13,6 +14,8 @@ app = FastAPI(
 Base.metadata.create_all(bind=engine)
 
 app.include_router(colis.router)
+
+app.include_router(dashboard.router)
 
 @app.get("/")
 def root():
