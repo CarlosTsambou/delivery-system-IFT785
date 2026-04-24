@@ -32,16 +32,6 @@ Accéder à la documentation interactive : http://127.0.0.1:8000/docs
 ```bash
 pytest tests/ -v --cov=app
 ```
-
-## Architecture
-
-app/
-├── models/          # Modèles SQLAlchemy (tables)
-├── repositories/    # Accès base de données (pattern Repository)
-├── services/        # Logique métier (State, Strategy)
-├── routers/         # Routes FastAPI
-└── notifications/   # Système de notifications (pattern Observer)
-
 ## Modules implémentés
 
 - M1 — Gestion des colis : CRUD complet, cycle de vie avec transitions validées
