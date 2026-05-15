@@ -1,60 +1,78 @@
-# delivery-system-IFT785# Système de gestion de livraison de colis — IFT785
+# Delivery System — IFT785
 
-Système backend de suivi et d'optimisation de livraisons de colis développé avec FastAPI.
-Il gère le cycle de vie complet d'un colis (créé → en transit → livré → confirmé),
-envoie des notifications par email et offre un tableau de bord de statistiques.
+[![Language: Python](https://img.shields.io/badge/Language-Python-blue.svg)](https://www.python.org/)
+[![Framework: FastAPI](https://img.shields.io/badge/Framework-FastAPI-009688.svg)](https://fastapi.tiangolo.com/)
+[![Database: SQLite](https://img.shields.io/badge/Database-SQLite-003B57.svg)](https://www.sqlite.org/)
+[![Tests: pytest](https://img.shields.io/badge/Tests-pytest-0A9EDC.svg)](https://pytest.org/)
 
-## Prérequis
+> Système de gestion de livraisons avec API REST — projet académique IFT785 · Université de Sherbrooke · Hiver 2026
 
-- Python 3.11+
-- Git
+---
 
-## Installation
+## Aperçu
 
-```bash
-git clone https://github.com/CarlosTsambou/delivery-system-IFT785.git
-cd delivery-system-IFT785
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-```
+Application backend complète pour la gestion d'un système de livraisons. Le projet met en œuvre une architecture modulaire orientée maintenabilité avec séparation claire des couches (domaine / application / infrastructure).
 
-## Lancer le serveur
+---
 
-```bash
-uvicorn app.main:app --reload
-```
+## Fonctionnalités
 
-Accéder à la documentation interactive : http://127.0.0.1:8000/docs
+- API REST complète (CRUD) pour la gestion des commandes et livraisons
+- Architecture modulaire — séparation domaine / application / infrastructure
+- Persistance des données avec SQLite
+- Tests automatisés avec pytest et mesure de couverture
+- Validation des données et gestion des erreurs
 
-## Lancer les tests
-
-```bash
-pytest tests/ -v --cov=app
-```
-## Modules implémentés
-
-- M1 — Gestion des colis : CRUD complet, cycle de vie avec transitions validées
-- M3 — Suivi temps réel : notifications email automatiques à chaque changement de statut
-- M6 — Tableau de bord : statistiques globales, par statut et par période
-
-## API externe
-
-Notifications email via SMTP (Gmail / SendGrid).
-Configuration dans le fichier `.env` :
-
-EMAIL_EXPEDITEUR=votre@email.com
-EMAIL_MOT_DE_PASSE=votre_mot_de_passe
-SMTP_SERVEUR=smtp.gmail.com
-SMTP_PORT=587
+---
 
 ## Stack technique
 
-- FastAPI + Uvicorn
-- SQLAlchemy + SQLite
-- Pydantic
-- pytest + pytest-cov
+| Composant | Technologie |
+|-----------|-------------|
+| Backend | Python · FastAPI |
+| Base de données | SQLite |
+| Tests | pytest · coverage |
+| Qualité | flake8 · revue de code |
 
-## Design Patterns
+---
 
-Voir PATTERNS.md pour le détail des 8 patterns implémentés.
+## Structure du projet
+
+```
+delivery-system-IFT785/
+├── app/
+│   ├── domain/          # Entités métier et règles de gestion
+│   ├── application/     # Services et cas d'utilisation
+│   └── infrastructure/  # Accès base de données, routes API
+├── tests/               # Tests unitaires et d'intégration
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Installation et exécution
+
+```bash
+# Cloner le repo
+git clone https://github.com/CarlosTsambou/delivery-system-IFT785.git
+cd delivery-system-IFT785
+
+# Installer les dépendances
+pip install -r requirements.txt
+
+# Lancer l'application
+uvicorn app.main:app --reload
+
+# Lancer les tests
+pytest tests/ -v --cov=app
+```
+
+L'API est accessible à `http://localhost:8000` — documentation interactive disponible sur `/docs`.
+
+---
+
+## Auteur
+
+**Carlos Tsambou Jiofack**  
+[github.com/CarlosTsambou](https://github.com/CarlosTsambou) · [linkedin.com/in/carlos-tsambou-jiofack](https://linkedin.com/in/carlos-tsambou-jiofack)
